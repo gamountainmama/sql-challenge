@@ -1,8 +1,9 @@
 -- List the employee number, last name, first name, sex, and salary of each employee.
+
 DROP VIEW employees_all;
 
 CREATE VIEW employees_all AS
-SELECT employees.emp_no, employees.last_name, employees.first_name, employees.sex, salaries.salary
+SELECT employees.emp_no AS "Employee #", employees.last_name AS "Last Name", employees.first_name AS "First Name", employees.sex AS "Sex", salaries.salary AS "Salary"
 FROM employees
 JOIN salaries
 ON (employees.emp_no = salaries.emp_no);
@@ -14,7 +15,7 @@ SELECT * FROM employees_all;
 DROP VIEW employees_hired_1986;
 
 CREATE VIEW employees_hired_1986 AS
-SELECT first_name, last_name, hire_date
+SELECT first_name AS "First Name", last_name AS "Last Name", hire_date AS "Hire Date"
 FROM employees
 WHERE hire_date BETWEEN '$1986-01-01' AND '$1986-12-31'
 ORDER BY hire_date;
@@ -26,13 +27,13 @@ SELECT * FROM employees_hired_1986;
 DROP VIEW managers;
 
 CREATE VIEW managers AS
-SELECT ds.dept_no, ds.dept_name, dm.emp_no, emp.last_name, emp.first_name
+SELECT ds.dept_no AS "Department #", ds.dept_name AS "Department Name", dm.emp_no AS "Employee #", emp.last_name AS "Last Name", emp.first_name AS "First Name"
 FROM departments as ds
 JOIN dept_manager as dm
 ON (ds.dept_no = dm.dept_no)
 JOIN employees as emp
 ON (dm.emp_no = emp.emp_no)
-ORDER BY dept_no;
+ORDER BY "Department #";
 
 SELECT * FROM managers;
 
@@ -41,13 +42,13 @@ SELECT * FROM managers;
 DROP VIEW emp_dept;
 
 CREATE VIEW emp_dept AS
-SELECT emp.emp_no, emp.last_name, emp.first_name, dp.dept_name
-FROM employees as emp
-JOIN dept_emp as de
+SELECT emp.emp_no AS "Employee #", emp.last_name AS "Last Name", emp.first_name AS "First Name", dp.dept_name AS "Department"
+FROM employees AS emp
+JOIN dept_emp AS de
 ON (emp.emp_no = de.emp_no)
-JOIN departments as dp
+JOIN departments AS dp
 ON (de.dept_no = dp.dept_no)
-ORDER BY emp_no;
+ORDER BY "Employee #";
 
 SELECT * FROM emp_dept;
 
@@ -56,10 +57,10 @@ SELECT * FROM emp_dept;
 DROP VIEW hercules_b;
 
 CREATE VIEW hercules_b AS
-SELECT first_name, last_name, sex
+SELECT first_name AS "First Name", last_name AS "Last Name", sex AS "Sex"
 FROM employees
 WHERE first_name = 'Hercules' AND last_name LIKE 'B%'
-ORDER BY last_name;
+ORDER BY "Last Name";
 
 SELECT * FROM hercules_b;
 
@@ -68,28 +69,41 @@ SELECT * FROM hercules_b;
 DROP VIEW sales_dept;
 
 CREATE VIEW sales_dept AS
-SELECT emp.emp_no, emp.last_name, emp.first_name
-FROM employees as emp
-JOIN dept_emp as de
+SELECT emp.emp_no AS "Employee #", emp.last_name AS "Last Name", emp.first_name AS "First Name"
+FROM employees AS emp
+JOIN dept_emp AS de
 ON (emp.emp_no = de.emp_no)
-JOIN departments as dp
+JOIN departments AS dp
 ON (de.dept_no = dp.dept_no)
-WHERE dept_name = 'Sales';
+WHERE dept_name = 'Sales'
+ORDER BY "Last Name";
 
-SELECT * from sales_dept;
+SELECT * FROM sales_dept;
 
 -- List each employee in the Sales and Development departments, including their employee number, last name, first name, and department name.
 
 DROP VIEW sales_dev;
 
 CREATE VIEW sales_dev AS
-SELECT emp.emp_no, emp.last_name, emp.first_name, dp.dept_name
-FROM employees as emp
-JOIN dept_emp as de
+SELECT emp.emp_no AS "Employee #", emp.last_name AS "Last Name", emp.first_name AS "First Name", dp.dept_name AS "Department"
+FROM employees AS emp
+JOIN dept_emp AS de
 ON (emp.emp_no = de.emp_no)
-JOIN departments as dp
+JOIN departments AS dp
 ON (de.dept_no = dp.dept_no)
 WHERE dept_name = 'Sales' OR dept_name = 'Development'
-ORDER BY dept_name;
+ORDER BY "Employee #";
 
-SELECT * from sales_dev;
+SELECT * FROM sales_dev;
+
+-- List the frequency counts, in descending order, of all the employee last names (that is, how many employees share each last name).
+
+DROP VIEW emp_last_freq;
+
+CREATE VIEW emp_last_freq AS
+SELECT last_name AS "Last Name", COUNT(last_name) AS "Frequency"
+FROM employees
+GROUP BY last_name
+ORDER BY "Frequency" DESC;
+
+SELECT * FROM emp_last_freq;
