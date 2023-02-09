@@ -62,3 +62,19 @@ WHERE first_name = 'Hercules' AND last_name LIKE 'B%'
 ORDER BY last_name;
 
 SELECT * FROM hercules_b;
+
+-- List each employee in the Sales department, including their employee number, last name, and first name.
+
+DROP VIEW sales_dept;
+
+CREATE VIEW sales_dept AS
+SELECT emp.emp_no, emp.last_name, emp.first_name
+FROM employees as emp
+JOIN dept_emp as de
+ON (emp.emp_no = de.emp_no)
+JOIN departments as dp
+ON (de.dept_no = dp.dept_no)
+WHERE dept_name = 'Sales';
+
+SELECT * from sales_dept;
+
