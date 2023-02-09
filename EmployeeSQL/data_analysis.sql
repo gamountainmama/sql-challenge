@@ -50,3 +50,15 @@ ON (de.dept_no = dp.dept_no)
 ORDER BY emp_no;
 
 SELECT * FROM emp_dept;
+
+-- List first name, last name, and sex of each employee whose first name is Hercules and whose last name begins with the letter B.
+
+DROP VIEW hercules_b;
+
+CREATE VIEW hercules_b AS
+SELECT first_name, last_name, sex
+FROM employees
+WHERE first_name = 'Hercules' AND last_name LIKE 'B%'
+ORDER BY last_name;
+
+SELECT * FROM hercules_b;
