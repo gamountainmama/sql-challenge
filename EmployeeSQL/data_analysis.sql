@@ -3,7 +3,7 @@
 DROP VIEW employees_all;
 
 CREATE VIEW employees_all AS
-SELECT employees.emp_no AS "Employee #", employees.last_name AS "Last Name", employees.first_name AS "First Name", employees.sex AS "Sex", salaries.salary AS "Salary"
+SELECT employees.emp_no AS "Employee #", employees.last_name AS "Last Name", employees.first_name AS "First Name", employees.sex AS "Sex", CAST(salaries.salary as money) AS "Salary"
 FROM employees
 JOIN salaries
 ON (employees.emp_no = salaries.emp_no);
