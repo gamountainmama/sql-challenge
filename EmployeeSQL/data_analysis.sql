@@ -6,7 +6,8 @@ CREATE VIEW employees_all AS
 SELECT employees.emp_no AS "Employee #", employees.last_name AS "Last Name", employees.first_name AS "First Name", employees.sex AS "Sex", CAST(salaries.salary as money) AS "Salary"
 FROM employees
 JOIN salaries
-ON (employees.emp_no = salaries.emp_no);
+ON (employees.emp_no = salaries.emp_no)
+ORDER BY "Employee #";
 
 SELECT * FROM employees_all;
 
@@ -42,7 +43,7 @@ SELECT * FROM managers;
 DROP VIEW emp_dept;
 
 CREATE VIEW emp_dept AS
-SELECT emp.emp_no AS "Employee #", emp.last_name AS "Last Name", emp.first_name AS "First Name", dp.dept_name AS "Department"
+SELECT dp.dept_no AS "Department #", emp.emp_no AS "Employee #", emp.last_name AS "Last Name", emp.first_name AS "First Name", dp.dept_name AS "Department"
 FROM employees AS emp
 JOIN dept_emp AS de
 ON (emp.emp_no = de.emp_no)
