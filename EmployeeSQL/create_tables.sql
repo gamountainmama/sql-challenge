@@ -1,6 +1,6 @@
 --Create titles table
 
-DROP TABLE titles;
+DROP TABLE IF EXISTS titles;
 
 CREATE TABLE titles(
 	title_id VARCHAR(10) NOT NULL PRIMARY KEY,
@@ -10,7 +10,7 @@ SELECT * FROM titles;
 
 --Create employees table
 
-DROP TABLE employees;
+DROP TABLE IF EXISTS employees;
 
 CREATE TABLE employees(
 	emp_no INT NOT NULL PRIMARY KEY,
@@ -26,7 +26,7 @@ SELECT * FROM employees;
 
 --Create salaries table
 
-DROP TABLE salaries;
+DROP TABLE IF EXISTS salaries;
 
 CREATE TABLE salaries(
 	id SERIAL PRIMARY KEY,
@@ -38,7 +38,7 @@ SELECT * FROM salaries;
 
 --Create departments table
 
-DROP TABLE departments;
+DROP TABLE IF EXISTS departments;
 
 CREATE TABLE departments(
 	dept_no	VARCHAR(10) NOT NULL PRIMARY KEY,
@@ -48,7 +48,7 @@ SELECT * FROM departments;
 
 --Create department employees table
 
-DROP TABLE dept_emp;
+DROP TABLE IF EXISTS dept_emp;
 
 CREATE TABLE dept_emp(
 	id SERIAL PRIMARY KEY,
@@ -61,7 +61,7 @@ SELECT * FROM dept_emp;
 
 --Create department managers table
 
-DROP TABLE dept_manager;
+DROP TABLE IF EXISTS dept_manager;
 
 CREATE TABLE dept_manager(
 	id SERIAL PRIMARY KEY,
